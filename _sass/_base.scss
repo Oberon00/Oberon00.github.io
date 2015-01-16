@@ -18,8 +18,8 @@ body {
     font-size: $base-font-size;
     line-height: $base-line-height;
     font-weight: 300;
-    color: $text-color;
-    background-color: $background-color;
+    color: $cl-fg;
+    background-color: $cl-bg;
     -webkit-text-size-adjust: 100%;
 }
 
@@ -81,6 +81,7 @@ li {
  */
 h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
+    font-family: $head-font-family;
 }
 
 
@@ -89,15 +90,15 @@ h1, h2, h3, h4, h5, h6 {
  * Links
  */
 a {
-    color: $brand-color;
+    color: $cl-brand;
     text-decoration: none;
 
     &:visited {
-        color: darken($brand-color, 15%);
+        color: darken($cl-brand, 15%);
     }
 
     &:hover {
-        color: $text-color;
+        color: $cl-fg;
         text-decoration: underline;
     }
 }
@@ -108,8 +109,8 @@ a {
  * Blockquotes
  */
 blockquote {
-    color: $grey-color;
-    border-left: 4px solid $grey-color-light;
+    color: $cl-fg-lo;
+    border-left: 4px solid $cl-sep;
     padding-left: $spacing-unit / 2;
     font-size: 18px;
     letter-spacing: -1px;
@@ -128,9 +129,10 @@ blockquote {
 pre,
 code {
     font-size: 15px;
-    border: 1px solid $grey-color-light;
+    border: 1px solid $cl-sep;
     border-radius: 3px;
-    background-color: #eef;
+    background-color: $cl-hl-bg;
+    font-family: $mono-font-family;
 }
 
 code {
@@ -139,7 +141,7 @@ code {
 
 pre {
     padding: 8px 12px;
-    overflow-x: scroll;
+    overflow-x: auto;
 
     > code {
         border: 0;
@@ -154,7 +156,7 @@ pre {
  * Wrapper
  */
 .wrapper {
-    max-width: -webkit-calc(800px - (#{$spacing-unit} * 2));
+    max-width: -webkit-calc(100px - (#{$spacing-unit} * 2));
     max-width:         calc(800px - (#{$spacing-unit} * 2));
     margin-right: auto;
     margin-left: auto;
@@ -198,7 +200,7 @@ pre {
         vertical-align: middle;
 
         path {
-            fill: $grey-color;
+            fill: $cl-fg-lo;
         }
     }
 }

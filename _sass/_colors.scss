@@ -1,0 +1,36 @@
+// Gruvbox.vim colors {{{
+$cl-dark0: #282828;
+$cl-dark1: #3c3836;
+$cl-dark2: #504945;
+$cl-dark3: #665c54;
+$cl-dark4: #7c6f64;
+
+$cl-medium: #928374;
+
+$cl-light0: #fdf4c1;
+$cl-light1: #ebdbb2;
+$cl-light2: #d5c4a1;
+$cl-light3: #bdae93;
+$cl-light4: #a89984;
+
+$cl-red: #fb4934;
+$cl-green: #b8bb26;
+$cl-yellow: #fabd2f;
+$cl-blue: #83a598;
+$cl-purple: #d3869b;
+$cl-aqua: #8ec07c;
+$cl-orange: #fe8019;
+// }}}
+
+$cl-fg: $cl-light1;
+$cl-fg-lo: $cl-light3;
+$cl-fg-dim: $cl-light2;
+$cl-txt-bg: $cl-dark0;
+$cl-hl-bg: $cl-dark1;
+$cl-bg: $cl-dark2;
+$cl-sep: $cl-light4;
+$cl-hl: $cl-aqua;
+$cl-action: $cl-green;
+$cl-link: $cl-blue;
+$cl-link-visited: $cl-purple;
+$cl-brand: $cl-yellow;
