@@ -195,8 +195,9 @@
  */
 .post {
     background-color: $cl-txt-bg;
-    box-shadow: 0 0 5px 5px $cl-txt-bg;
     padding: $spacing-unit;
+    border-left: 1px solid $cl-sep;
+    border-right: 1px solid $cl-sep;
 }
 
 .post-header {
