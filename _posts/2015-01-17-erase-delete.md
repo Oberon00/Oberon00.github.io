@@ -183,7 +183,7 @@ that destroy their contained elements. In fact, probably even the `Dialog` class
 of the above example will use RAII, as we have assumed that its destructor frees
 any associated fonts, windows, and other handles it used.
 
-In fact, the deterministic destructors of C++ ([in contrast to garbage collected
+The deterministic destructors of C++ ([in contrast to garbage collected
 languages][oldnew-gc] where you can never know when or if finalizers are run)
 that make this idiom possible are one of the language's key features, some call
 it even [the best one][andrzej-dtor]. Often, you will see modern C++ code having
