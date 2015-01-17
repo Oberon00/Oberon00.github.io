@@ -27,7 +27,7 @@ void dialogFoo()
 
 Obviously, there's a problem: The function `dialogFoo` creates a new `Dialog`
 object on the heap using `new` and uses it, but does nothing to get rid of it.
-The memory and any other resources (icons, fonts, …) used by the dialog is
+The memory and any other resources (icons, fonts, …) used by the dialog are
 *leaked*: the operating system still thinks that they are in use and will not be
 able to give them to programs (including the program containing `dialogFoo`!)
 that really need them.
@@ -55,7 +55,7 @@ is thrown anywhere between the `new` and the `delete`, `dlg` is still leaked
 
 [exception-safety]: http://en.wikipedia.org/wiki/Exception_safety
 
-And the absence of `throw` does not even remotely indicate the absence of
+The absence of `throw` does not even remotely indicate the absence of
 exeptions: Even if the called member functions of `dlg` never throw (which is
 very unlikely for real code), there certainly is a function that might throw:
 the `<<` operator of `std::cout`. It is unlikely, but someone could have called
