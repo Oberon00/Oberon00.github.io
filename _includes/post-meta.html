@@ -1,0 +1,8 @@
+<p class="post-meta">
+  <span title="{{ page.date | date: "%R" }}">
+    {{ page.date | date: "%B %-d, %Y" }}
+  </span>
+  {% if page.author %} • {{ page.author }}{% endif %}
+  {% if page.meta %} • {{ page.meta }}{% endif %}
+  {% if page.categories %} • {{ page.categories }}{% endif %}
+</p>
