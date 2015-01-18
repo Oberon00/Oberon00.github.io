@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
-gem 'jekyll'
-gem 'jekyll-sass-converter'
+gem 'github-pages'
+gem 'listen', '< 2.7.11'
 gem 'wdm', '>= 0.1.0' if Gem.win_platform?
