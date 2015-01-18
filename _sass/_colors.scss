@@ -22,6 +22,28 @@ $cl-aqua: #8ec07c;
 $cl-orange: #fe8019;
 // }}}
 
+$cl-inv-dark0 : #fbf1c7;
+$cl-inv-dark1 : #ebdbb2;
+$cl-inv-dark2 : #d5c4a1;
+$cl-inv-dark3 : #bdae93;
+$cl-inv-dark4 : #a89984;
+
+$cl-inv-medium: #928374;
+
+$cl-inv-light0: #282828;
+$cl-inv-light1: #3c3836;
+$cl-inv-light2: #504945;
+$cl-inv-light3: #665c54;
+$cl-inv-light4: #7c6f64;
+
+$cl-inv-red   : #9d0006;
+$cl-inv-green : #79740e;
+$cl-inv-yellow: #b57614;
+$cl-inv-blue  : #076678;
+$cl-inv-purple: #8f3f71;
+$cl-inv-aqua  : #427b58;
+$cl-inv-orange: #af3a03;
+
 $cl-fg: $cl-light1;
 $cl-fg-lo: $cl-light3;
 $cl-fg-dim: $cl-light2;
@@ -34,3 +56,8 @@ $cl-action: $cl-green;
 $cl-link: $cl-blue;
 $cl-link-visited: $cl-purple;
 $cl-brand: $cl-yellow;
+
+$cl-inv-fg-lo: $cl-inv-light3;
+$cl-inv-fg-dim: $cl-inv-light2;
+$cl-inv-sep: $cl-inv-light4;
+$cl-inv-brand: $cl-inv-yellow;

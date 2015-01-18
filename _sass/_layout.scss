@@ -4,6 +4,10 @@
 .site-header {
     border-top: 5px solid $cl-sep;
     border-bottom: 1px solid $cl-fg-lo;
+    @media print {
+        border-top-color: $cl-inv-sep;
+        border-bottom-color: $cl-inv-fg-lo;
+    }
     min-height: 56px;
 
     // Positioning context for the mobile navigation icon
@@ -20,10 +24,13 @@
     &,
     &:visited {
         color: $cl-yellow;
+        @media print { color: $cl-inv-yellow; }
     }
 }
 
 .site-nav {
+    @media print { & { display: none; } }
+
     float: right;
     line-height: 56px;
 
@@ -93,6 +100,7 @@
  */
 .site-footer {
     border-top: 1px solid $cl-fg-lo;
+    @media print { border-top-color: $cl-inv-fg-lo; }
     padding: $spacing-unit 0;
 }
 
@@ -110,6 +118,7 @@
 .footer-col-wrapper {
     font-size: 15px;
     color: $cl-fg-dim;
+    @media print { color: $cl-inv-fg-dim; }
     margin-left: -$spacing-unit / 2;
     @extend %clearfix;
 }
@@ -181,6 +190,7 @@
 .post-meta {
     font-size: $small-font-size;
     color: $cl-fg-dim;
+    @media print { color: $cl-inv-fg-dim; }
 }
 
 .post-link {
@@ -198,6 +208,11 @@
     padding: $spacing-unit;
     border-left: 1px solid $cl-sep;
     border-right: 1px solid $cl-sep;
+    @media print {
+        background-color: transparent;
+        border: none;
+        padding: 0;
+    }
 }
 
 .post-header {
@@ -253,5 +268,6 @@
         margin-top: 2em;
         padding-top: 1em;
         border-top: 1px solid $cl-sep;
+        @media print { border-color: $cl-inv-sep; }
     }
 }

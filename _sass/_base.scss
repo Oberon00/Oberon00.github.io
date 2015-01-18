@@ -21,7 +21,12 @@ body {
     color: $cl-fg;
     background-color: $cl-bg;
     -webkit-text-size-adjust: 100%;
+    @media print {
+        color: black;
+        background-color: white;
+    }
 }
+
 
 
 
@@ -101,6 +106,12 @@ a {
         color: $cl-fg;
         text-decoration: underline;
     }
+
+    @media print {
+        color: $cl-inv-brand;
+        &:visited { color: darken($cl-inv-brand, 15%); }
+        &:hover { color: black; }
+    }
 }
 
 
@@ -117,6 +128,11 @@ blockquote {
 
     > :last-child {
         margin-bottom: 0;
+    }
+
+    @media print {
+        color: $cl-inv-fg-lo;
+        border-left-color: $cl-inv-sep;
     }
 }
 
@@ -144,6 +160,11 @@ pre {
         padding-right: 0;
         padding-left: 0;
     }
+
+    @media print {
+        background-color: transparent;
+        border-color: $cl-inv-sep;
+    }
 }
 
 
@@ -165,6 +186,10 @@ pre {
         max-width:         calc(800px - (#{$spacing-unit}));
         padding-right: $spacing-unit / 2;
         padding-left: $spacing-unit / 2;
+    }
+
+    @media print {
+        max-width: none;
     }
 }
 
@@ -197,6 +222,7 @@ pre {
 
         path {
             fill: $cl-fg-lo;
+            @media print { fill: $cl-inv-fg-lo; }
         }
     }
 }
