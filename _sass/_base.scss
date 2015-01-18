@@ -153,6 +153,7 @@ pre {
     border-radius: 3px;
     border: 1px solid $cl-sep;
     padding: 8px 12px;
+    padding-right: 0; /* Avoid scrollbars. */
     overflow-x: auto;
 
     > code {
