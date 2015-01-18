@@ -4,5 +4,9 @@
   </span>
   {% if page.author %} • {{ page.author }}{% endif %}
   {% if page.meta %} • {{ page.meta }}{% endif %}
-  {% if page.categories %} • {{ page.categories }}{% endif %}
+  {% if page.categories %} • {{ page.categories | join: ", " }}{% endif %}
+  {% if page.tags %}
+    {% if page.categories %} · {% else %} • {% endif %}
+    {{ page.tags | join: ", " }}
+  {% endif %}
 </p>

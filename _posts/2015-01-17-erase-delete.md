@@ -1,6 +1,7 @@
 ---
 title: Erase delete
-categories: C++
+category: C++
+tags: [RAII]
 ---
 
 **tl;dr:** The usage of `delete` in normal C++ code is an anti-pattern. There are
