@@ -113,7 +113,6 @@ blockquote {
     border-left: 4px solid $cl-sep;
     padding-left: $spacing-unit / 2;
     font-size: 18px;
-    letter-spacing: -1px;
     font-style: italic;
 
     > :last-child {
@@ -128,8 +127,9 @@ blockquote {
  */
 pre,
 code {
-    font-size: 15px;
+    font-size: 0.98em;
     font-family: $mono-font-family;
+    white-space: pre;
 }
 
 pre {
