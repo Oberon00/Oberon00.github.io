@@ -9,9 +9,9 @@ In my [last post]({% post_url 2015-01-17-erase-delete %}), I presented the
 usefulness and necessity of RAII. In this post I want to walk you through the
 implementation of the [second][observer_ptr] simplest imaginable smart pointer:
 The `scoped_ptr` class template should support the `*` and `->` operators, and
-delete the pointee in its destructor. This is what
-[`std::unique_ptr`][unique_ptr] also does, but we will see that our `scoped_ptr`
-lacks some of `unique_ptr`'s features.
+delete the pointee in its destructor (i.e. when a `scoped_ptr` object goes out
+of scope). This is what [`std::unique_ptr`][unique_ptr] also does, but we will
+see that our `scoped_ptr` lacks some of `unique_ptr`'s features.
 
 [observer_ptr]: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4282.pdf
 [unique_ptr]: http://en.cppreference.com/w/cpp/memory/unique_ptr
