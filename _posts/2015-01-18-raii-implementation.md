@@ -185,10 +185,10 @@ public:
 
 {% endhighlight %}
 
-The `= delete` declaration here has nothing to do with the ordinary `delete
-ptr`; It is a C++11 feature that instructs the compiler not to generate these
-normally compiler-generated functions, so that any uses of them will lead to a
-compile-time error. Now the [code above](#big3-violation) will not make the
+The `= delete` declaration here has nothing to do with the ordinary
+`delete ptr`; It is a C++11 feature that instructs the compiler not to generate
+these normally compiler-generated functions, so that any uses of them will lead
+to a compile-time error. Now the [code above](#big3-violation) will not make the
 program crash (or whatever else the undefined behavior might cause) but instead
 just fail to compile with a (hopefully) nice error message that allows us to
 quickly find and fix the problem.
