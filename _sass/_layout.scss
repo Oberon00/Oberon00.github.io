@@ -209,6 +209,10 @@
     > li {
         margin-bottom: $spacing-unit;
     }
+
+    .readmore {
+        margin-top: -$spacing-unit / 2;
+    }
 }
 
 .post-meta {

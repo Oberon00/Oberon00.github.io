@@ -9,13 +9,15 @@ layout: default
   <ul class="post-list">
     {% for page in site.posts %}
       <li>
-        {% include post-meta.html %}
+        {% include post-meta.html pg=page %}
         <h2>
           <a class="post-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
         </h2>
         <div class="post-content">
           {{page.excerpt}}
-          <a href={{ page.url | prepend: site.baseurl }}>Read more&hellip;</a>
+          <a class="readmore" href={{ page.url | prepend: site.baseurl }}>
+            Read more&hellip;
+          </a>
         </div>
       </li>
     {% endfor %}
