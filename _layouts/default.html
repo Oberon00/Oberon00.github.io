@@ -10,9 +10,28 @@
     <div class="page-content">
       <div class="wrapper">
         {{ content }}
+        {% if page.previous.url or page.next.url %}
+          <nav class="page-nav">
+            {% if page.previous.url %}
+              <a class="prev"
+                 href="{{page.previous.url}}"
+                 title="{% include post-meta-nohtml.html pg=page.previous %}">
+                {{page.previous.title}}
+              </a>
+            {% else %}
+              <span class="dummy-prev"> </span>
+            {% endif %}
+            {% if page.next.url %}
+              <a class="next"
+                 href="{{page.next.url}}"
+                 title="{% include post-meta-nohtml.html pg=page.next %}">
+                {{page.next.title}}
+              </a>
+            {% endif %}
+          </nav>
+        {% endif %}
       </div>
     </div>
-
     {% include footer.html %}
 
   </body>

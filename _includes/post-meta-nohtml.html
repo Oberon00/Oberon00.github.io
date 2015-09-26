@@ -1,0 +1,4 @@
+{% capture _post_meta %}
+{{ include.pg.date | date: "%B %-d, %Y" }}
+{% include post-meta-nodate.html pg=include.pg %}
+{% endcapture %} {{ _post_meta | remove: "  " | strip_newlines }}

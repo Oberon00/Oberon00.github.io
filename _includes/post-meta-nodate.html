@@ -1,0 +1,9 @@
+{% if include.pg.author %} • {{ include.pg.author }}{% endif %}
+{% if include.pg.meta %} • {{ include.pg.meta }}{% endif %}
+{% if include.pg.categories %}
+  • {{ include.pg.categories | join: ", " }}
+{% endif %}
+{% if include.pg.tags != empty %}
+  {% if include.pg.categories %} · {% else %} • {% endif %}
+  {{ include.pg.tags | join: ", " }}
+{% endif %}

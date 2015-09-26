@@ -1,12 +1,6 @@
 <p class="post-meta">
-  <span title="{{ page.date | date: "%R" }}">
-    {{ page.date | date: "%B %-d, %Y" }}
+  <span title="{{ include.pg.date | date: "%R" }}">
+    {{ include.pg.date | date: "%B %-d, %Y" }}
   </span>
-  {% if page.author %} • {{ page.author }}{% endif %}
-  {% if page.meta %} • {{ page.meta }}{% endif %}
-  {% if page.categories %} • {{ page.categories | join: ", " }}{% endif %}
-  {% if page.tags %}
-    {% if page.categories %} · {% else %} • {% endif %}
-    {{ page.tags | join: ", " }}
-  {% endif %}
+  {% include post-meta-nodate.html pg=include.pg %}
 </p>
