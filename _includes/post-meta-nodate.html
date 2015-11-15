@@ -1,6 +1,6 @@
 {% if include.pg.author %} • {{ include.pg.author }}{% endif %}
 {% if include.pg.meta %} • {{ include.pg.meta }}{% endif %}
-{% if include.pg.categories %}
+{% if include.pg.categories != empty %}
   • {{ include.pg.categories | join: ", " }}
 {% endif %}
 {% if include.pg.tags != empty %}
