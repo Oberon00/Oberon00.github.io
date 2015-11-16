@@ -2,7 +2,7 @@
 title: "Type safety of .NET delegates vs. C function pointers"
 categories: [C#, C++]
 tags: [Type safety]
-#date: "2015-01-18 17:37"
+date: "2015-11-16 22:54"
 ---
 
 It is often claimed that one of the advantages of the C#/.NET delegate mechanism
@@ -14,14 +14,13 @@ the obvious way.
 Consider the following C-example:
 
 {% highlight c %}
-
 typedef bool(*LessThanFn)(int, int);
 
 int maxInt(int* arr, size_t len, LessThanFn lt) {
     assert(len > 0);
-    int result = ints[0];
+    int result = arr[0];
     for (size_t i = 1; i < len; ++i) {
-        if (lt(max, arr[i]))
+        if (lt(result, arr[i]))
             result = arr[i];
     }
 
@@ -30,12 +29,13 @@ int maxInt(int* arr, size_t len, LessThanFn lt) {
 
 bool less(int lhs, int rhs) { return lhs < rhs; }
 
-int main() {
-  int const len = 4;
-  int[len] ints = {0, -1, 10, 4};
-  assert(maxInt(arr, len, less) == 10);
-}
+#define LEN 4
 
+int main() {
+  int ints[LEN] = {0, -1, 10, 4};
+  assert(maxInt(ints, LEN, less) == 10);
+  return 0;
+}
 {% endhighlight %}
 
 Here, everything is completely type-safe. The mistake of passing a function with
@@ -53,14 +53,13 @@ there are no generics in C, the typical way to implement this is by using
 `void*`:
 
 {% highlight c %}
-
 typedef bool(*LessThanFn)(int, int, void*);
 
 int maxInt(int* arr, size_t len, LessThanFn lt, void* state) {
     assert(len > 0);
-    int result = ints[0];
+    int result = arr[0];
     for (size_t i = 1; i < len; ++i) {
-        if (lt(max, arr[i], state))
+        if (lt(result, arr[i], state))
             result = arr[i];
     }
 
@@ -72,15 +71,15 @@ bool differenceLess(int lhs, int rhs, void* state) {
     return abs(lhs - center) < abs(rhs - center);
 }
 
-int main() {
-    int const len = 4;
-    int[len] ints = {0, -1, 10, 4};
-    int center = 11;
-    assert(maxInt(arr, len, differenceLess, center) == -1);
-    center = 4;
-    assert(maxInt(arr, len, differenceLess, center) == 10);
-}
+#define LEN 4
 
+int main() {
+    int ints[LEN] = {0, -1, 10, 4};
+    int center = 11;
+    assert(maxInt(ints, LEN, differenceLess, &center) == -1);
+    center = 4;
+    assert(maxInt(ints, LEN, differenceLess, &center) == 10);
+}
 {% endhighlight %}
 
 Not only is this unnecessarily complicated if the function has no state, it also
@@ -93,15 +92,14 @@ Contrary to the previous C example, using C# delegates leads to code that is
 both equally simple for stateful and stateless functions and type-safe:
 
 {% highlight c# %}
-
 delegate bool LessThanFn(int lhs, int rhs);
 
 internal static class Program {
-    private static int MaxInt(int[] ints, LessThanFn lt) {
-        Debug.Assert(ints.Length > 0);
-        int result = ints[0];
-        for (size_t i = 1; i < ints.Length; ++i) {
-            if (lt(max, arr[i]))
+    private static int MaxInt(int[] arr, LessThanFn lt) {
+        Debug.Assert(arr.Length > 0);
+        int result = arr[0];
+        for (int i = 1; i < arr.Length; ++i) {
+            if (lt(result, arr[i]))
                 result = arr[i];
         }
         return result;
@@ -118,12 +116,11 @@ internal static class Program {
     public static void Main(string[] args) {
         int[] ints = {0, -1, 10, 4};
         var cmp = new DifferenceLess { Center = 11 };
-        Debug.Assert(maxInt(arr, cmp.Compare) == -1);
+        Debug.Assert(MaxInt(ints, cmp.Compare) == -1);
         cmp.Center = 4;
-        Debug.Assert(maxInt(arr, cmp.Compare) == 10);
+        Debug.Assert(MaxInt(ints, cmp.Compare) == 10);
     }
 }
-
 {% endhighlight %}
 
 Clearly, this C# example has improved type safety over the C example before.
@@ -184,7 +181,7 @@ int max = MaxInt(arr, (a, b) => Math.Abs(a - center) < Math.Abs(b -center));
 {% highlight c++%}
 // C++
 int center = 4;
-int max = maxInt(arr, len, [] (int a, int b) {
+int max = maxInt(arr, len, [center] (int a, int b) {
     return std::abs(a - center) < std::abs(b - center);
 });
 {% endhighlight %}
