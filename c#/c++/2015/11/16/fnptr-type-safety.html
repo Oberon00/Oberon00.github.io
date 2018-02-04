@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="/feed.xml"
+          rel="alternate" type="application/rss+xml"
+          title="heappush post RSS feed" />
+    <title>Type safety of .NET delegates vs. C function pointers &ndash; heappush</title>
+    <meta name="description" content="Christian Neumüller's Blog: Mostly about software development">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://oberon00.github.io/c%23/c++/2015/11/16/fnptr-type-safety.html">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">heappush</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/projects/">Projects and contributions</a>
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Type safety of .NET delegates vs. C function pointers</h1>
+  <p class="post-meta">
+  <span title="22:54">
+    November 16, 2015
+  </span>
+  
+
+
+  • C#, C++
+
+
+   · 
+  Type safety
+
+
+</p>
+
+  </header>
+
+  <article class="post-content">
+    <p>It is often claimed that one of the advantages of the C#/.NET delegate mechanism
+over C/C++ function pointers is the type safety. This claim is true but not in
+the obvious way.</p>
+
+<h1 id="the-c-way">The C way</h1>
+
+<p>Consider the following C-example:</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">typedef</span> <span class="nf">bool</span><span class="p">(</span><span class="o">*</span><span class="n">LessThanFn</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">maxInt</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">arr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="n">LessThanFn</span> <span class="n">lt</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">len</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">lt</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="nf">less</span><span class="p">(</span><span class="kt">int</span> <span class="n">lhs</span><span class="p">,</span> <span class="kt">int</span> <span class="n">rhs</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">lhs</span> <span class="o">&lt;</span> <span class="n">rhs</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="cp">#define LEN 4</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">ints</span><span class="p">[</span><span class="n">LEN</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">maxInt</span><span class="p">(</span><span class="n">ints</span><span class="p">,</span> <span class="n">LEN</span><span class="p">,</span> <span class="n">less</span><span class="p">)</span> <span class="o">==</span> <span class="mi">10</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Here, everything is completely type-safe. The mistake of passing a function with
+a signature that does not exactly match the one given by <code>LessThanFn</code> will be
+caught by the compiler.</p>
+
+<h2 id="stateful-functions-in-c">Stateful functions in C</h2>
+
+<p>In practice we often find that just passing a function pointer is not enough –
+we also need to associate state with the function. For example, what if the
+integers in the above example are indices to another array and we want to get
+the index of the maximum element in that other array? Or what if we want to have
+the integer with the greatest absolute difference from another integer?  Since
+there are no generics in C, the typical way to implement this is by using
+<code>void*</code>:</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">typedef</span> <span class="nf">bool</span><span class="p">(</span><span class="o">*</span><span class="n">LessThanFn</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">maxInt</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">arr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="n">LessThanFn</span> <span class="n">lt</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">len</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">lt</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">state</span><span class="p">))</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="nf">differenceLess</span><span class="p">(</span><span class="kt">int</span> <span class="n">lhs</span><span class="p">,</span> <span class="kt">int</span> <span class="n">rhs</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">center</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">state</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">abs</span><span class="p">(</span><span class="n">lhs</span> <span class="o">-</span> <span class="n">center</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">abs</span><span class="p">(</span><span class="n">rhs</span> <span class="o">-</span> <span class="n">center</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cp">#define LEN 4</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">ints</span><span class="p">[</span><span class="n">LEN</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
+    <span class="kt">int</span> <span class="n">center</span> <span class="o">=</span> <span class="mi">11</span><span class="p">;</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">maxInt</span><span class="p">(</span><span class="n">ints</span><span class="p">,</span> <span class="n">LEN</span><span class="p">,</span> <span class="n">differenceLess</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">center</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">center</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">maxInt</span><span class="p">(</span><span class="n">ints</span><span class="p">,</span> <span class="n">LEN</span><span class="p">,</span> <span class="n">differenceLess</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">center</span><span class="p">)</span> <span class="o">==</span> <span class="mi">10</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Not only is this unnecessarily complicated if the function has no state, it also
+is no longer type-safe! Passing the address of a <code>char</code> instead of an <code>int</code>
+already causes undefined behavior.</p>
+
+<h1 id="the-c-way-1">The C# way</h1>
+
+<p>Contrary to the previous C example, using C# delegates leads to code that is
+both equally simple for stateful and stateless functions and type-safe:</p>
+
+<figure class="highlight"><pre><code class="language-c#" data-lang="c#"><span></span><span class="k">delegate</span> <span class="kt">bool</span> <span class="nf">LessThanFn</span><span class="p">(</span><span class="kt">int</span> <span class="n">lhs</span><span class="p">,</span> <span class="kt">int</span> <span class="n">rhs</span><span class="p">);</span>
+
+<span class="k">internal</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">Program</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="k">static</span> <span class="kt">int</span> <span class="nf">MaxInt</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="n">arr</span><span class="p">,</span> <span class="n">LessThanFn</span> <span class="n">lt</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="n">Assert</span><span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">Length</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">result</span> <span class="p">=</span> <span class="n">arr</span><span class="p">[</span><span class="m">0</span><span class="p">];</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">arr</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="p">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lt</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                <span class="n">result</span> <span class="p">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">class</span> <span class="nc">DifferenceLess</span> <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">Center</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="k">public</span> <span class="kt">bool</span> <span class="nf">Compare</span><span class="p">(</span><span class="kt">int</span> <span class="n">lhs</span><span class="p">,</span> <span class="kt">int</span> <span class="n">rhs</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">Math</span><span class="p">.</span><span class="n">Abs</span><span class="p">(</span><span class="n">lhs</span> <span class="p">-</span> <span class="n">Center</span><span class="p">)</span> <span class="p">&lt;</span> <span class="n">Math</span><span class="p">.</span><span class="n">Abs</span><span class="p">(</span><span class="n">rhs</span> <span class="p">-</span> <span class="n">Center</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span><span class="p">[]</span> <span class="n">ints</span> <span class="p">=</span> <span class="p">{</span><span class="m">0</span><span class="p">,</span> <span class="p">-</span><span class="m">1</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">4</span><span class="p">};</span>
+        <span class="kt">var</span> <span class="n">cmp</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DifferenceLess</span> <span class="p">{</span> <span class="n">Center</span> <span class="p">=</span> <span class="m">11</span> <span class="p">};</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="n">Assert</span><span class="p">(</span><span class="n">MaxInt</span><span class="p">(</span><span class="n">ints</span><span class="p">,</span> <span class="n">cmp</span><span class="p">.</span><span class="n">Compare</span><span class="p">)</span> <span class="p">==</span> <span class="p">-</span><span class="m">1</span><span class="p">);</span>
+        <span class="n">cmp</span><span class="p">.</span><span class="n">Center</span> <span class="p">=</span> <span class="m">4</span><span class="p">;</span>
+        <span class="n">Debug</span><span class="p">.</span><span class="n">Assert</span><span class="p">(</span><span class="n">MaxInt</span><span class="p">(</span><span class="n">ints</span><span class="p">,</span> <span class="n">cmp</span><span class="p">.</span><span class="n">Compare</span><span class="p">)</span> <span class="p">==</span> <span class="m">10</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Clearly, this C# example has improved type safety over the C example before.
+Under the hood, the delegate type is implemented similarly to the C version in
+that it also has an additional state member of type <code>object</code> (the “target
+object” of the delegate) that replaces the <code>void*</code> parameter we used in C. Even
+though <code>object</code> is only slightly more type-safe than <code>void*</code> (replacing
+undefined behaviour with <code>InvalidCastException</code>s), delegates ensure type
+safety by not letting the programmer manually set the target object. Only the
+compiler can do it, and it always does so in combination with the target method
+making it impossible to have a target object and method type mismatch.</p>
+
+<p>If you insist on programming in a type-unsafe way in C#, you can still obtain
+the target object by using the delegates public <a href="https://msdn.microsoft.com/en-us/library/system.delegate.target.aspx"><code>Target</code> property</a>
+and fool around with the resulting <code>object</code>.</p>
+
+<h1 id="the-c-ways">The C++ way(s)</h1>
+
+<p>Even though this is a post about C# and C, I still cannot refrain from pointing
+out the fact that C++ also has not only one (of course) but two nice type-safe
+solutions to this problem. The first is to use a functor class, i.e. a class
+similar to <code>DifferenceLess</code> from the C# example but with an <code>operator()</code> instead
+of a <code>Compare</code> method. Then the <code>maxInt</code> function is changed to take the
+function not via a function pointer but via an arbitrary type (the <code>&amp;&amp;</code> ensures
+that the function object is not copied, which could be bad for large stateful
+functors while still allowing for functors with non-<code>const</code>
+<code>operator()</code>):<sup id="fnref:cppsig"><a href="#fn:cppsig" class="footnote">1</a></sup></p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">F</span><span class="o">&gt;</span>
+<span class="kt">int</span> <span class="n">maxInt</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">arr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">lt</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* exactly as in C */</span> <span class="p">}</span></code></pre></figure>
+
+<p>The other option is to use the <a href="http://en.cppreference.com/w/cpp/utility/functional/function"><code>std::function</code> class template</a> instead
+of a template parameter as type for the function parameter, which is less
+efficient but useful in situations where a function template cannot be used like
+when the function taking the function should be a overridable virtual method.</p>
+
+<h1 id="lambdas">Lambdas</h1>
+
+<p>This post completely ignored lambdas so far, but of course it is often far
+nicer to just drop in a lambda instead of writing a function of functor class.
+This is supported by both C++ and C#:</p>
+
+<figure class="highlight"><pre><code class="language-c#" data-lang="c#"><span></span><span class="c1">// C#</span>
+<span class="kt">int</span> <span class="n">center</span> <span class="p">=</span> <span class="m">4</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">max</span> <span class="p">=</span> <span class="n">MaxInt</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">Math</span><span class="p">.</span><span class="n">Abs</span><span class="p">(</span><span class="n">a</span> <span class="p">-</span> <span class="n">center</span><span class="p">)</span> <span class="p">&lt;</span> <span class="n">Math</span><span class="p">.</span><span class="n">Abs</span><span class="p">(</span><span class="n">b</span> <span class="p">-</span><span class="n">center</span><span class="p">));</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span></span><span class="c1">// C++</span>
+<span class="kt">int</span> <span class="n">center</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">maxInt</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="p">[</span><span class="n">center</span><span class="p">]</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">center</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">center</span><span class="p">);</span>
+<span class="p">});</span></code></pre></figure>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:cppsig">
+
+      <p>Note that making this a idiomatic C++ algorithm would also include replacing
+the array described by an <code>int*</code> and a length by a pair of iterators,
+allowing the function to work not only on an array of <code>int</code>s but any
+container with elements of any type – or one could just use
+<a href="http://en.cppreference.com/w/cpp/algorithm/max_element"><code>std::max_element</code></a>.</p>
+
+      <p>Similarly, the C# version before would best also become a generic and
+operate on an <code>IEnumerable&lt;T&gt;</code> instead of an <code>int[]</code>. <a href="#fnref:cppsig" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </article>
+
+</div>
+
+        
+          <nav class="page-nav">
+            
+              <a class="prev"
+                 href="/c++/2015/01/18/raii-implementation.html"
+                 title=" January 18, 2015• C++ · RAII
+">
+                Implementing RAII and more on smart pointers
+              </a>
+            
+            
+          </nav>
+        
+      </div>
+    </div>
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">heappush</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>heappush</li>
+          <li><a href="mailto:cn00 no-spam gmx no-spam at">cn00 no-spam gmx no-spam at</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/Oberon00">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">Oberon00</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/zeitferne">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">zeitferne</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Christian Neumüller's Blog: Mostly about software development</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

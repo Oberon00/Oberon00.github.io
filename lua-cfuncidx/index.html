@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lua C-API functions by category</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Lua C-API functions by category</h1>
+<p>Functions may appear in multiple categories.</p>
+<p>
+    The prefixes <code>lua_</code> and <code>luaL_</code> are omitted. Some
+    function pairs (e.g. <code>lua_len</code> and <code>luaL_len</code>) only
+    differ in the prefix. In this cases look if the function is marked as being
+    in the <a href="#aux">“Auxiliary library” (aux)</a> category.
+</p>
+<p>
+    Categories: <ul class="cats">
+      <li><a class="cat" href="#aux">Auxiliary library (luaL_*) (aux)</a>
+      <li><a class="cat" href="#chunk">Chunk loading and dumping (chunk)</a>
+      <li><a class="cat" href="#coro">Coroutines (coro)</a>
+      <li><a class="cat" href="#psh">Creating and pushing new values (psh)</a>
+      <li><a class="cat" href="#dbg">Debugging functions (dbg)</a>
+      <li><a class="cat" href="#err">Error handling (err)</a>
+      <li><a class="cat" href="#exec">Executing Lua code (exec)</a>
+      <li><a class="cat" href="#fn">function functions (fn)</a>
+      <li><a class="cat" href="#get">Functions for getting Lua values to C objects (get)</a>
+      <li><a class="cat" href="#nostate">Functions not needing a lua_State* (nostate)</a>
+      <li><a class="cat" href="#glob">Global table (glob)</a>
+      <li><a class="cat" href="#state">lua_State managemenent (state)</a>
+      <li><a class="cat" href="#mem">Memory and allocation related functions (mem)</a>
+      <li><a class="cat" href="#mt">Metatable functions (mt)</a>
+      <li><a class="cat" href="#num">number functions (num)</a>
+      <li><a class="cat" href="#op">Operators (op)</a>
+      <li><a class="cat" href="#rerr">Possibly raising errors (rerr)</a>
+      <li><a class="cat" href="#verr">Raising errors on purpose (verr)</a>
+      <li><a class="cat" href="#merr">Raising errors only when out of memory (merr)</a>
+      <li><a class="cat" href="#stack">Stack manipulation (stack)</a>
+      <li><a class="cat" href="#buf">String buffer (luaL_Buffer) functions (buf)</a>
+      <li><a class="cat" href="#str">string functions (str)</a>
+      <li><a class="cat" href="#tbl">table functions (tbl)</a>
+      <li><a class="cat" href="#ty">Type information (ty)</a>
+      <li><a class="cat" href="#udata">userdata functions (udata)</a>
+</ul></p>
+<h2 class="cathdr" id="aux">Auxiliary library (luaL_*)</h2>
+<ul class="catfns">
+<li><a class="func" title="luaL_addchar" href="http://www.lua.org/manual/5.3/manual.html#luaL_addchar">addchar</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_addlstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_addlstring">addlstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_addsize" href="http://www.lua.org/manual/5.3/manual.html#luaL_addsize">addsize</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+  </ul>
+<li><a class="func" title="luaL_addstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_addstring">addstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_addvalue" href="http://www.lua.org/manual/5.3/manual.html#luaL_addvalue">addvalue</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_argcheck" href="http://www.lua.org/manual/5.3/manual.html#luaL_argcheck">argcheck</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_argerror" href="http://www.lua.org/manual/5.3/manual.html#luaL_argerror">argerror</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_buffinit" href="http://www.lua.org/manual/5.3/manual.html#luaL_buffinit">buffinit</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+  </ul>
+<li><a class="func" title="luaL_buffinitsize" href="http://www.lua.org/manual/5.3/manual.html#luaL_buffinitsize">buffinitsize</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_callmeta" href="http://www.lua.org/manual/5.3/manual.html#luaL_callmeta">callmeta</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_checkany" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkany">checkany</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checkinteger" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkinteger">checkinteger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checklstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_checklstring">checklstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checknumber" href="http://www.lua.org/manual/5.3/manual.html#luaL_checknumber">checknumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checkoption" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkoption">checkoption</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checkstack" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkstack">checkstack</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Stack manipulation" href="#stack">stack</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checkstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkstring">checkstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checktype" href="http://www.lua.org/manual/5.3/manual.html#luaL_checktype">checktype</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Type information" href="#ty">ty</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checkudata" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkudata">checkudata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="userdata functions" href="#udata">udata</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checkversion" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkversion">checkversion</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="lua_State managemenent" href="#state">state</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_dofile" href="http://www.lua.org/manual/5.3/manual.html#luaL_dofile">dofile</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Chunk loading and dumping" href="#chunk">chunk</a>
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_dostring" href="http://www.lua.org/manual/5.3/manual.html#luaL_dostring">dostring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Chunk loading and dumping" href="#chunk">chunk</a>
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+  </ul>
+<li><a class="func" title="luaL_error" href="http://www.lua.org/manual/5.3/manual.html#luaL_error">error</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Error handling" href="#err">err</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_execresult" href="http://www.lua.org/manual/5.3/manual.html#luaL_execresult">execresult</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_fileresult" href="http://www.lua.org/manual/5.3/manual.html#luaL_fileresult">fileresult</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_getmetafield" href="http://www.lua.org/manual/5.3/manual.html#luaL_getmetafield">getmetafield</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+  </ul>
+<li><a class="func" title="luaL_getmetatable" href="http://www.lua.org/manual/5.3/manual.html#luaL_getmetatable">getmetatable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+  </ul>
+<li><a class="func" title="luaL_getsubtable" href="http://www.lua.org/manual/5.3/manual.html#luaL_getsubtable">getsubtable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_gsub" href="http://www.lua.org/manual/5.3/manual.html#luaL_gsub">gsub</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="luaL_len" href="http://www.lua.org/manual/5.3/manual.html#luaL_len">len</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_loadbuffer" href="http://www.lua.org/manual/5.3/manual.html#luaL_loadbuffer">loadbuffer</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Chunk loading and dumping" href="#chunk">chunk</a>
+  </ul>
+<li><a class="func" title="luaL_loadbufferx" href="http://www.lua.org/manual/5.3/manual.html#luaL_loadbufferx">loadbufferx</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Chunk loading and dumping" href="#chunk">chunk</a>
+  </ul>
+<li><a class="func" title="luaL_loadfile" href="http://www.lua.org/manual/5.3/manual.html#luaL_loadfile">loadfile</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Chunk loading and dumping" href="#chunk">chunk</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_loadfilex" href="http://www.lua.org/manual/5.3/manual.html#luaL_loadfilex">loadfilex</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Chunk loading and dumping" href="#chunk">chunk</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_loadstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_loadstring">loadstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Chunk loading and dumping" href="#chunk">chunk</a>
+  </ul>
+<li><a class="func" title="luaL_newlib" href="http://www.lua.org/manual/5.3/manual.html#luaL_newlib">newlib</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_newlibtable" href="http://www.lua.org/manual/5.3/manual.html#luaL_newlibtable">newlibtable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_newmetatable" href="http://www.lua.org/manual/5.3/manual.html#luaL_newmetatable">newmetatable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+  </ul>
+<li><a class="func" title="luaL_newstate" href="http://www.lua.org/manual/5.3/manual.html#luaL_newstate">newstate</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions not needing a lua_State*" href="#nostate">nostate</a>
+    <li><a class="catlnk" title="lua_State managemenent" href="#state">state</a>
+  </ul>
+<li><a class="func" title="luaL_openlibs" href="http://www.lua.org/manual/5.3/manual.html#luaL_openlibs">openlibs</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+    <li><a class="catlnk" title="lua_State managemenent" href="#state">state</a>
+  </ul>
+<li><a class="func" title="luaL_optinteger" href="http://www.lua.org/manual/5.3/manual.html#luaL_optinteger">optinteger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_optlstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_optlstring">optlstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_optnumber" href="http://www.lua.org/manual/5.3/manual.html#luaL_optnumber">optnumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_optstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_optstring">optstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_prepbuffer" href="http://www.lua.org/manual/5.3/manual.html#luaL_prepbuffer">prepbuffer</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_prepbuffsize" href="http://www.lua.org/manual/5.3/manual.html#luaL_prepbuffsize">prepbuffsize</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_pushresult" href="http://www.lua.org/manual/5.3/manual.html#luaL_pushresult">pushresult</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_pushresultsize" href="http://www.lua.org/manual/5.3/manual.html#luaL_pushresultsize">pushresultsize</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_ref" href="http://www.lua.org/manual/5.3/manual.html#luaL_ref">ref</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_requiref" href="http://www.lua.org/manual/5.3/manual.html#luaL_requiref">requiref</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_setfuncs" href="http://www.lua.org/manual/5.3/manual.html#luaL_setfuncs">setfuncs</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_setmetatable" href="http://www.lua.org/manual/5.3/manual.html#luaL_setmetatable">setmetatable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+  </ul>
+<li><a class="func" title="luaL_testudata" href="http://www.lua.org/manual/5.3/manual.html#luaL_testudata">testudata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+    <li><a class="catlnk" title="userdata functions" href="#udata">udata</a>
+  </ul>
+<li><a class="func" title="luaL_tolstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_tolstring">tolstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="luaL_traceback" href="http://www.lua.org/manual/5.3/manual.html#luaL_traceback">traceback</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Debugging functions" href="#dbg">dbg</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_typename" href="http://www.lua.org/manual/5.3/manual.html#luaL_typename">typename</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Type information" href="#ty">ty</a>
+  </ul>
+<li><a class="func" title="luaL_unref" href="http://www.lua.org/manual/5.3/manual.html#luaL_unref">unref</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_where" href="http://www.lua.org/manual/5.3/manual.html#luaL_where">where</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Debugging functions" href="#dbg">dbg</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="chunk">Chunk loading and dumping</h2>
+<ul class="catfns">
+<li><a class="func" title="luaL_dofile" href="http://www.lua.org/manual/5.3/manual.html#luaL_dofile">dofile</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_dostring" href="http://www.lua.org/manual/5.3/manual.html#luaL_dostring">dostring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+  </ul>
+<li><a class="func" title="lua_dump" href="http://www.lua.org/manual/5.3/manual.html#lua_dump">dump</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+  </ul>
+<li><a class="func" title="lua_load" href="http://www.lua.org/manual/5.3/manual.html#lua_load">load</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+  </ul>
+<li><a class="func" title="luaL_loadbuffer" href="http://www.lua.org/manual/5.3/manual.html#luaL_loadbuffer">loadbuffer</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+  </ul>
+<li><a class="func" title="luaL_loadbufferx" href="http://www.lua.org/manual/5.3/manual.html#luaL_loadbufferx">loadbufferx</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+  </ul>
+<li><a class="func" title="luaL_loadfile" href="http://www.lua.org/manual/5.3/manual.html#luaL_loadfile">loadfile</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_loadfilex" href="http://www.lua.org/manual/5.3/manual.html#luaL_loadfilex">loadfilex</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_loadstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_loadstring">loadstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="coro">Coroutines</h2>
+<ul class="catfns">
+<li><a class="func" title="lua_callk" href="http://www.lua.org/manual/5.3/manual.html#lua_callk">callk</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_isthread" href="http://www.lua.org/manual/5.3/manual.html#lua_isthread">isthread</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Type information" href="#ty">ty</a>
+  </ul>
+<li><a class="func" title="lua_isyieldable" href="http://www.lua.org/manual/5.3/manual.html#lua_isyieldable">isyieldable</a>
+<li><a class="func" title="lua_newthread" href="http://www.lua.org/manual/5.3/manual.html#lua_newthread">newthread</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_pcallk" href="http://www.lua.org/manual/5.3/manual.html#lua_pcallk">pcallk</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Error handling" href="#err">err</a>
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+  </ul>
+<li><a class="func" title="lua_pushthread" href="http://www.lua.org/manual/5.3/manual.html#lua_pushthread">pushthread</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_resume" href="http://www.lua.org/manual/5.3/manual.html#lua_resume">resume</a>
+<li><a class="func" title="lua_status" href="http://www.lua.org/manual/5.3/manual.html#lua_status">status</a>
+<li><a class="func" title="lua_tothread" href="http://www.lua.org/manual/5.3/manual.html#lua_tothread">tothread</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+  </ul>
+<li><a class="func" title="lua_xmove" href="http://www.lua.org/manual/5.3/manual.html#lua_xmove">xmove</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Stack manipulation" href="#stack">stack</a>
+  </ul>
+<li><a class="func" title="lua_yield" href="http://www.lua.org/manual/5.3/manual.html#lua_yield">yield</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_yieldk" href="http://www.lua.org/manual/5.3/manual.html#lua_yieldk">yieldk</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="psh">Creating and pushing new values</h2>
+<ul class="catfns">
+<li><a class="func" title="lua_createtable" href="http://www.lua.org/manual/5.3/manual.html#lua_createtable">createtable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_newtable" href="http://www.lua.org/manual/5.3/manual.html#lua_newtable">newtable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_newthread" href="http://www.lua.org/manual/5.3/manual.html#lua_newthread">newthread</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Coroutines" href="#coro">coro</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="lua_newuserdata" href="http://www.lua.org/manual/5.3/manual.html#lua_newuserdata">newuserdata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="userdata functions" href="#udata">udata</a>
+  </ul>
+<li><a class="func" title="lua_pushboolean" href="http://www.lua.org/manual/5.3/manual.html#lua_pushboolean">pushboolean</a>
+<li><a class="func" title="lua_pushcclosure" href="http://www.lua.org/manual/5.3/manual.html#lua_pushcclosure">pushcclosure</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="lua_pushcfunction" href="http://www.lua.org/manual/5.3/manual.html#lua_pushcfunction">pushcfunction</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+  </ul>
+<li><a class="func" title="lua_pushfstring" href="http://www.lua.org/manual/5.3/manual.html#lua_pushfstring">pushfstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="lua_pushglobaltable" href="http://www.lua.org/manual/5.3/manual.html#lua_pushglobaltable">pushglobaltable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Global table" href="#glob">glob</a>
+  </ul>
+<li><a class="func" title="lua_pushinteger" href="http://www.lua.org/manual/5.3/manual.html#lua_pushinteger">pushinteger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+  </ul>
+<li><a class="func" title="lua_pushlightuserdata" href="http://www.lua.org/manual/5.3/manual.html#lua_pushlightuserdata">pushlightuserdata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="userdata functions" href="#udata">udata</a>
+  </ul>
+<li><a class="func" title="lua_pushliteral" href="http://www.lua.org/manual/5.3/manual.html#lua_pushliteral">pushliteral</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="lua_pushlstring" href="http://www.lua.org/manual/5.3/manual.html#lua_pushlstring">pushlstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="lua_pushnil" href="http://www.lua.org/manual/5.3/manual.html#lua_pushnil">pushnil</a>
+<li><a class="func" title="lua_pushnumber" href="http://www.lua.org/manual/5.3/manual.html#lua_pushnumber">pushnumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+  </ul>
+<li><a class="func" title="lua_pushstring" href="http://www.lua.org/manual/5.3/manual.html#lua_pushstring">pushstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="lua_pushthread" href="http://www.lua.org/manual/5.3/manual.html#lua_pushthread">pushthread</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Coroutines" href="#coro">coro</a>
+  </ul>
+<li><a class="func" title="lua_pushvalue" href="http://www.lua.org/manual/5.3/manual.html#lua_pushvalue">pushvalue</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Stack manipulation" href="#stack">stack</a>
+  </ul>
+<li><a class="func" title="lua_pushvfstring" href="http://www.lua.org/manual/5.3/manual.html#lua_pushvfstring">pushvfstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="dbg">Debugging functions</h2>
+<ul class="catfns">
+<li><a class="func" title="lua_gethook" href="http://www.lua.org/manual/5.3/manual.html#lua_gethook">gethook</a>
+<li><a class="func" title="lua_gethookcount" href="http://www.lua.org/manual/5.3/manual.html#lua_gethookcount">gethookcount</a>
+<li><a class="func" title="lua_gethookmask" href="http://www.lua.org/manual/5.3/manual.html#lua_gethookmask">gethookmask</a>
+<li><a class="func" title="lua_getinfo" href="http://www.lua.org/manual/5.3/manual.html#lua_getinfo">getinfo</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_getlocal" href="http://www.lua.org/manual/5.3/manual.html#lua_getlocal">getlocal</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+  </ul>
+<li><a class="func" title="lua_getstack" href="http://www.lua.org/manual/5.3/manual.html#lua_getstack">getstack</a>
+<li><a class="func" title="lua_getupvalue" href="http://www.lua.org/manual/5.3/manual.html#lua_getupvalue">getupvalue</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+  </ul>
+<li><a class="func" title="lua_sethook" href="http://www.lua.org/manual/5.3/manual.html#lua_sethook">sethook</a>
+<li><a class="func" title="lua_setlocal" href="http://www.lua.org/manual/5.3/manual.html#lua_setlocal">setlocal</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+  </ul>
+<li><a class="func" title="lua_setupvalue" href="http://www.lua.org/manual/5.3/manual.html#lua_setupvalue">setupvalue</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+  </ul>
+<li><a class="func" title="lua_topointer" href="http://www.lua.org/manual/5.3/manual.html#lua_topointer">topointer</a>
+<li><a class="func" title="luaL_traceback" href="http://www.lua.org/manual/5.3/manual.html#luaL_traceback">traceback</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="lua_upvalueid" href="http://www.lua.org/manual/5.3/manual.html#lua_upvalueid">upvalueid</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+  </ul>
+<li><a class="func" title="lua_upvaluejoin" href="http://www.lua.org/manual/5.3/manual.html#lua_upvaluejoin">upvaluejoin</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+  </ul>
+<li><a class="func" title="luaL_where" href="http://www.lua.org/manual/5.3/manual.html#luaL_where">where</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="err">Error handling</h2>
+<ul class="catfns">
+<li><a class="func" title="lua_atpanic" href="http://www.lua.org/manual/5.3/manual.html#lua_atpanic">atpanic</a>
+<li><a class="func" title="lua_error" href="http://www.lua.org/manual/5.3/manual.html#lua_error">error</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_error" href="http://www.lua.org/manual/5.3/manual.html#luaL_error">error</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="lua_pcall" href="http://www.lua.org/manual/5.3/manual.html#lua_pcall">pcall</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+  </ul>
+<li><a class="func" title="lua_pcallk" href="http://www.lua.org/manual/5.3/manual.html#lua_pcallk">pcallk</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Coroutines" href="#coro">coro</a>
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="exec">Executing Lua code</h2>
+<ul class="catfns">
+<li><a class="func" title="lua_call" href="http://www.lua.org/manual/5.3/manual.html#lua_call">call</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_callk" href="http://www.lua.org/manual/5.3/manual.html#lua_callk">callk</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Coroutines" href="#coro">coro</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_callmeta" href="http://www.lua.org/manual/5.3/manual.html#luaL_callmeta">callmeta</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_dofile" href="http://www.lua.org/manual/5.3/manual.html#luaL_dofile">dofile</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Chunk loading and dumping" href="#chunk">chunk</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_dostring" href="http://www.lua.org/manual/5.3/manual.html#luaL_dostring">dostring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Chunk loading and dumping" href="#chunk">chunk</a>
+  </ul>
+<li><a class="func" title="lua_pcall" href="http://www.lua.org/manual/5.3/manual.html#lua_pcall">pcall</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Error handling" href="#err">err</a>
+  </ul>
+<li><a class="func" title="lua_pcallk" href="http://www.lua.org/manual/5.3/manual.html#lua_pcallk">pcallk</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Coroutines" href="#coro">coro</a>
+    <li><a class="catlnk" title="Error handling" href="#err">err</a>
+  </ul>
+<li><a class="func" title="luaL_requiref" href="http://www.lua.org/manual/5.3/manual.html#luaL_requiref">requiref</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="fn">function functions</h2>
+<ul class="catfns">
+<li><a class="func" title="lua_dump" href="http://www.lua.org/manual/5.3/manual.html#lua_dump">dump</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Chunk loading and dumping" href="#chunk">chunk</a>
+  </ul>
+<li><a class="func" title="lua_getlocal" href="http://www.lua.org/manual/5.3/manual.html#lua_getlocal">getlocal</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Debugging functions" href="#dbg">dbg</a>
+  </ul>
+<li><a class="func" title="lua_getupvalue" href="http://www.lua.org/manual/5.3/manual.html#lua_getupvalue">getupvalue</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Debugging functions" href="#dbg">dbg</a>
+  </ul>
+<li><a class="func" title="lua_iscfunction" href="http://www.lua.org/manual/5.3/manual.html#lua_iscfunction">iscfunction</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Type information" href="#ty">ty</a>
+  </ul>
+<li><a class="func" title="lua_load" href="http://www.lua.org/manual/5.3/manual.html#lua_load">load</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Chunk loading and dumping" href="#chunk">chunk</a>
+  </ul>
+<li><a class="func" title="luaL_newlib" href="http://www.lua.org/manual/5.3/manual.html#luaL_newlib">newlib</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_pushcclosure" href="http://www.lua.org/manual/5.3/manual.html#lua_pushcclosure">pushcclosure</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_pushcfunction" href="http://www.lua.org/manual/5.3/manual.html#lua_pushcfunction">pushcfunction</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_register" href="http://www.lua.org/manual/5.3/manual.html#lua_register">register</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Global table" href="#glob">glob</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_requiref" href="http://www.lua.org/manual/5.3/manual.html#luaL_requiref">requiref</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_setfuncs" href="http://www.lua.org/manual/5.3/manual.html#luaL_setfuncs">setfuncs</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_setlocal" href="http://www.lua.org/manual/5.3/manual.html#lua_setlocal">setlocal</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Debugging functions" href="#dbg">dbg</a>
+  </ul>
+<li><a class="func" title="lua_setupvalue" href="http://www.lua.org/manual/5.3/manual.html#lua_setupvalue">setupvalue</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Debugging functions" href="#dbg">dbg</a>
+  </ul>
+<li><a class="func" title="lua_tocfunction" href="http://www.lua.org/manual/5.3/manual.html#lua_tocfunction">tocfunction</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+  </ul>
+<li><a class="func" title="lua_upvalueid" href="http://www.lua.org/manual/5.3/manual.html#lua_upvalueid">upvalueid</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Debugging functions" href="#dbg">dbg</a>
+  </ul>
+<li><a class="func" title="lua_upvalueindex" href="http://www.lua.org/manual/5.3/manual.html#lua_upvalueindex">upvalueindex</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Stack manipulation" href="#stack">stack</a>
+  </ul>
+<li><a class="func" title="lua_upvaluejoin" href="http://www.lua.org/manual/5.3/manual.html#lua_upvaluejoin">upvaluejoin</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Debugging functions" href="#dbg">dbg</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="get">Functions for getting Lua values to C objects</h2>
+<ul class="catfns">
+<li><a class="func" title="luaL_checkinteger" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkinteger">checkinteger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checklstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_checklstring">checklstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checknumber" href="http://www.lua.org/manual/5.3/manual.html#luaL_checknumber">checknumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checkoption" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkoption">checkoption</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checkstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkstring">checkstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checkudata" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkudata">checkudata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="userdata functions" href="#udata">udata</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_optinteger" href="http://www.lua.org/manual/5.3/manual.html#luaL_optinteger">optinteger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_optlstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_optlstring">optlstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_optnumber" href="http://www.lua.org/manual/5.3/manual.html#luaL_optnumber">optnumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_optstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_optstring">optstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_testudata" href="http://www.lua.org/manual/5.3/manual.html#luaL_testudata">testudata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+    <li><a class="catlnk" title="userdata functions" href="#udata">udata</a>
+  </ul>
+<li><a class="func" title="lua_toboolean" href="http://www.lua.org/manual/5.3/manual.html#lua_toboolean">toboolean</a>
+<li><a class="func" title="lua_tocfunction" href="http://www.lua.org/manual/5.3/manual.html#lua_tocfunction">tocfunction</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+  </ul>
+<li><a class="func" title="lua_tointeger" href="http://www.lua.org/manual/5.3/manual.html#lua_tointeger">tointeger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+  </ul>
+<li><a class="func" title="lua_tointegerx" href="http://www.lua.org/manual/5.3/manual.html#lua_tointegerx">tointegerx</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+  </ul>
+<li><a class="func" title="lua_tolstring" href="http://www.lua.org/manual/5.3/manual.html#lua_tolstring">tolstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="luaL_tolstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_tolstring">tolstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="lua_tonumber" href="http://www.lua.org/manual/5.3/manual.html#lua_tonumber">tonumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+  </ul>
+<li><a class="func" title="lua_tonumberx" href="http://www.lua.org/manual/5.3/manual.html#lua_tonumberx">tonumberx</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+  </ul>
+<li><a class="func" title="lua_tostring" href="http://www.lua.org/manual/5.3/manual.html#lua_tostring">tostring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="lua_tothread" href="http://www.lua.org/manual/5.3/manual.html#lua_tothread">tothread</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Coroutines" href="#coro">coro</a>
+  </ul>
+<li><a class="func" title="lua_touserdata" href="http://www.lua.org/manual/5.3/manual.html#lua_touserdata">touserdata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="userdata functions" href="#udata">udata</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="nostate">Functions not needing a lua_State*</h2>
+<ul class="catfns">
+<li><a class="func" title="lua_newstate" href="http://www.lua.org/manual/5.3/manual.html#lua_newstate">newstate</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="lua_State managemenent" href="#state">state</a>
+  </ul>
+<li><a class="func" title="luaL_newstate" href="http://www.lua.org/manual/5.3/manual.html#luaL_newstate">newstate</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="lua_State managemenent" href="#state">state</a>
+  </ul>
+<li><a class="func" title="lua_numbertointeger" href="http://www.lua.org/manual/5.3/manual.html#lua_numbertointeger">numbertointeger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+  </ul>
+<li><a class="func" title="lua_version" href="http://www.lua.org/manual/5.3/manual.html#lua_version">version</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="lua_State managemenent" href="#state">state</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="glob">Global table</h2>
+<ul class="catfns">
+<li><a class="func" title="lua_getglobal" href="http://www.lua.org/manual/5.3/manual.html#lua_getglobal">getglobal</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_pushglobaltable" href="http://www.lua.org/manual/5.3/manual.html#lua_pushglobaltable">pushglobaltable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_register" href="http://www.lua.org/manual/5.3/manual.html#lua_register">register</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_setglobal" href="http://www.lua.org/manual/5.3/manual.html#lua_setglobal">setglobal</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="state">lua_State managemenent</h2>
+<ul class="catfns">
+<li><a class="func" title="luaL_checkversion" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkversion">checkversion</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="lua_close" href="http://www.lua.org/manual/5.3/manual.html#lua_close">close</a>
+<li><a class="func" title="lua_getextraspace" href="http://www.lua.org/manual/5.3/manual.html#lua_getextraspace">getextraspace</a>
+<li><a class="func" title="lua_newstate" href="http://www.lua.org/manual/5.3/manual.html#lua_newstate">newstate</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions not needing a lua_State*" href="#nostate">nostate</a>
+  </ul>
+<li><a class="func" title="luaL_newstate" href="http://www.lua.org/manual/5.3/manual.html#luaL_newstate">newstate</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions not needing a lua_State*" href="#nostate">nostate</a>
+  </ul>
+<li><a class="func" title="luaL_openlibs" href="http://www.lua.org/manual/5.3/manual.html#luaL_openlibs">openlibs</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_version" href="http://www.lua.org/manual/5.3/manual.html#lua_version">version</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions not needing a lua_State*" href="#nostate">nostate</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="mem">Memory and allocation related functions</h2>
+<ul class="catfns">
+<li><a class="func" title="lua_gc" href="http://www.lua.org/manual/5.3/manual.html#lua_gc">gc</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_getallocf" href="http://www.lua.org/manual/5.3/manual.html#lua_getallocf">getallocf</a>
+<li><a class="func" title="lua_setallocf" href="http://www.lua.org/manual/5.3/manual.html#lua_setallocf">setallocf</a>
+</ul>
+<h2 class="cathdr" id="mt">Metatable functions</h2>
+<ul class="catfns">
+<li><a class="func" title="luaL_callmeta" href="http://www.lua.org/manual/5.3/manual.html#luaL_callmeta">callmeta</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_getmetafield" href="http://www.lua.org/manual/5.3/manual.html#luaL_getmetafield">getmetafield</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="lua_getmetatable" href="http://www.lua.org/manual/5.3/manual.html#lua_getmetatable">getmetatable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_getmetatable" href="http://www.lua.org/manual/5.3/manual.html#luaL_getmetatable">getmetatable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_newmetatable" href="http://www.lua.org/manual/5.3/manual.html#luaL_newmetatable">newmetatable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="lua_setmetatable" href="http://www.lua.org/manual/5.3/manual.html#lua_setmetatable">setmetatable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_setmetatable" href="http://www.lua.org/manual/5.3/manual.html#luaL_setmetatable">setmetatable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+  </ul>
+<li><a class="func" title="luaL_testudata" href="http://www.lua.org/manual/5.3/manual.html#luaL_testudata">testudata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="userdata functions" href="#udata">udata</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="num">number functions</h2>
+<ul class="catfns">
+<li><a class="func" title="lua_arith" href="http://www.lua.org/manual/5.3/manual.html#lua_arith">arith</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_checkinteger" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkinteger">checkinteger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checknumber" href="http://www.lua.org/manual/5.3/manual.html#luaL_checknumber">checknumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="lua_compare" href="http://www.lua.org/manual/5.3/manual.html#lua_compare">compare</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_isinteger" href="http://www.lua.org/manual/5.3/manual.html#lua_isinteger">isinteger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Type information" href="#ty">ty</a>
+  </ul>
+<li><a class="func" title="lua_isnumber" href="http://www.lua.org/manual/5.3/manual.html#lua_isnumber">isnumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Type information" href="#ty">ty</a>
+  </ul>
+<li><a class="func" title="lua_numbertointeger" href="http://www.lua.org/manual/5.3/manual.html#lua_numbertointeger">numbertointeger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions not needing a lua_State*" href="#nostate">nostate</a>
+  </ul>
+<li><a class="func" title="luaL_optinteger" href="http://www.lua.org/manual/5.3/manual.html#luaL_optinteger">optinteger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_optnumber" href="http://www.lua.org/manual/5.3/manual.html#luaL_optnumber">optnumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="lua_pushinteger" href="http://www.lua.org/manual/5.3/manual.html#lua_pushinteger">pushinteger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_pushnumber" href="http://www.lua.org/manual/5.3/manual.html#lua_pushnumber">pushnumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_stringtonumber" href="http://www.lua.org/manual/5.3/manual.html#lua_stringtonumber">stringtonumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="lua_tointeger" href="http://www.lua.org/manual/5.3/manual.html#lua_tointeger">tointeger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+  </ul>
+<li><a class="func" title="lua_tointegerx" href="http://www.lua.org/manual/5.3/manual.html#lua_tointegerx">tointegerx</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+  </ul>
+<li><a class="func" title="lua_tonumber" href="http://www.lua.org/manual/5.3/manual.html#lua_tonumber">tonumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+  </ul>
+<li><a class="func" title="lua_tonumberx" href="http://www.lua.org/manual/5.3/manual.html#lua_tonumberx">tonumberx</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="op">Operators</h2>
+<ul class="catfns">
+<li><a class="func" title="lua_arith" href="http://www.lua.org/manual/5.3/manual.html#lua_arith">arith</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_compare" href="http://www.lua.org/manual/5.3/manual.html#lua_compare">compare</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_concat" href="http://www.lua.org/manual/5.3/manual.html#lua_concat">concat</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="lua_gettable" href="http://www.lua.org/manual/5.3/manual.html#lua_gettable">gettable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_len" href="http://www.lua.org/manual/5.3/manual.html#lua_len">len</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_rawequal" href="http://www.lua.org/manual/5.3/manual.html#lua_rawequal">rawequal</a>
+<li><a class="func" title="lua_rawget" href="http://www.lua.org/manual/5.3/manual.html#lua_rawget">rawget</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_settable" href="http://www.lua.org/manual/5.3/manual.html#lua_settable">settable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_tolstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_tolstring">tolstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="rerr">Possibly raising errors</h2>
+<ul class="catfns">
+<li><a class="func" title="lua_arith" href="http://www.lua.org/manual/5.3/manual.html#lua_arith">arith</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+  </ul>
+<li><a class="func" title="lua_call" href="http://www.lua.org/manual/5.3/manual.html#lua_call">call</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+  </ul>
+<li><a class="func" title="lua_callk" href="http://www.lua.org/manual/5.3/manual.html#lua_callk">callk</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Coroutines" href="#coro">coro</a>
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+  </ul>
+<li><a class="func" title="luaL_callmeta" href="http://www.lua.org/manual/5.3/manual.html#luaL_callmeta">callmeta</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+  </ul>
+<li><a class="func" title="lua_compare" href="http://www.lua.org/manual/5.3/manual.html#lua_compare">compare</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+  </ul>
+<li><a class="func" title="lua_concat" href="http://www.lua.org/manual/5.3/manual.html#lua_concat">concat</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="luaL_dofile" href="http://www.lua.org/manual/5.3/manual.html#luaL_dofile">dofile</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Chunk loading and dumping" href="#chunk">chunk</a>
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+  </ul>
+<li><a class="func" title="lua_gc" href="http://www.lua.org/manual/5.3/manual.html#lua_gc">gc</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Memory and allocation related functions" href="#mem">mem</a>
+  </ul>
+<li><a class="func" title="lua_getfield" href="http://www.lua.org/manual/5.3/manual.html#lua_getfield">getfield</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_getglobal" href="http://www.lua.org/manual/5.3/manual.html#lua_getglobal">getglobal</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Global table" href="#glob">glob</a>
+  </ul>
+<li><a class="func" title="lua_geti" href="http://www.lua.org/manual/5.3/manual.html#lua_geti">geti</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_getinfo" href="http://www.lua.org/manual/5.3/manual.html#lua_getinfo">getinfo</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Debugging functions" href="#dbg">dbg</a>
+  </ul>
+<li><a class="func" title="luaL_getsubtable" href="http://www.lua.org/manual/5.3/manual.html#luaL_getsubtable">getsubtable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_gettable" href="http://www.lua.org/manual/5.3/manual.html#lua_gettable">gettable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_len" href="http://www.lua.org/manual/5.3/manual.html#lua_len">len</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_len" href="http://www.lua.org/manual/5.3/manual.html#luaL_len">len</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_next" href="http://www.lua.org/manual/5.3/manual.html#lua_next">next</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_openlibs" href="http://www.lua.org/manual/5.3/manual.html#luaL_openlibs">openlibs</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="lua_State managemenent" href="#state">state</a>
+  </ul>
+<li><a class="func" title="lua_register" href="http://www.lua.org/manual/5.3/manual.html#lua_register">register</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+    <li><a class="catlnk" title="Global table" href="#glob">glob</a>
+  </ul>
+<li><a class="func" title="luaL_requiref" href="http://www.lua.org/manual/5.3/manual.html#luaL_requiref">requiref</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Executing Lua code" href="#exec">exec</a>
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+  </ul>
+<li><a class="func" title="lua_setfield" href="http://www.lua.org/manual/5.3/manual.html#lua_setfield">setfield</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_setglobal" href="http://www.lua.org/manual/5.3/manual.html#lua_setglobal">setglobal</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Global table" href="#glob">glob</a>
+  </ul>
+<li><a class="func" title="lua_seti" href="http://www.lua.org/manual/5.3/manual.html#lua_seti">seti</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_setmetatable" href="http://www.lua.org/manual/5.3/manual.html#lua_setmetatable">setmetatable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_settable" href="http://www.lua.org/manual/5.3/manual.html#lua_settable">settable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_tolstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_tolstring">tolstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="lua_yield" href="http://www.lua.org/manual/5.3/manual.html#lua_yield">yield</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Coroutines" href="#coro">coro</a>
+  </ul>
+<li><a class="func" title="lua_yieldk" href="http://www.lua.org/manual/5.3/manual.html#lua_yieldk">yieldk</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Coroutines" href="#coro">coro</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="verr">Raising errors on purpose</h2>
+<ul class="catfns">
+<li><a class="func" title="luaL_argcheck" href="http://www.lua.org/manual/5.3/manual.html#luaL_argcheck">argcheck</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+  </ul>
+<li><a class="func" title="luaL_argerror" href="http://www.lua.org/manual/5.3/manual.html#luaL_argerror">argerror</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+  </ul>
+<li><a class="func" title="luaL_checkany" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkany">checkany</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+  </ul>
+<li><a class="func" title="luaL_checkinteger" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkinteger">checkinteger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+  </ul>
+<li><a class="func" title="luaL_checklstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_checklstring">checklstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="luaL_checknumber" href="http://www.lua.org/manual/5.3/manual.html#luaL_checknumber">checknumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+  </ul>
+<li><a class="func" title="luaL_checkoption" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkoption">checkoption</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="luaL_checkstack" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkstack">checkstack</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Stack manipulation" href="#stack">stack</a>
+  </ul>
+<li><a class="func" title="luaL_checkstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkstring">checkstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="luaL_checktype" href="http://www.lua.org/manual/5.3/manual.html#luaL_checktype">checktype</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Type information" href="#ty">ty</a>
+  </ul>
+<li><a class="func" title="luaL_checkudata" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkudata">checkudata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="userdata functions" href="#udata">udata</a>
+  </ul>
+<li><a class="func" title="luaL_checkversion" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkversion">checkversion</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="lua_State managemenent" href="#state">state</a>
+  </ul>
+<li><a class="func" title="lua_error" href="http://www.lua.org/manual/5.3/manual.html#lua_error">error</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Error handling" href="#err">err</a>
+  </ul>
+<li><a class="func" title="luaL_error" href="http://www.lua.org/manual/5.3/manual.html#luaL_error">error</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Error handling" href="#err">err</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="luaL_optinteger" href="http://www.lua.org/manual/5.3/manual.html#luaL_optinteger">optinteger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+  </ul>
+<li><a class="func" title="luaL_optlstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_optlstring">optlstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="luaL_optnumber" href="http://www.lua.org/manual/5.3/manual.html#luaL_optnumber">optnumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+  </ul>
+<li><a class="func" title="luaL_optstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_optstring">optstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="merr">Raising errors only when out of memory</h2>
+<ul class="catfns">
+<li><a class="func" title="luaL_addchar" href="http://www.lua.org/manual/5.3/manual.html#luaL_addchar">addchar</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+  </ul>
+<li><a class="func" title="luaL_addlstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_addlstring">addlstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+  </ul>
+<li><a class="func" title="luaL_addstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_addstring">addstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+  </ul>
+<li><a class="func" title="luaL_addvalue" href="http://www.lua.org/manual/5.3/manual.html#luaL_addvalue">addvalue</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+  </ul>
+<li><a class="func" title="luaL_buffinitsize" href="http://www.lua.org/manual/5.3/manual.html#luaL_buffinitsize">buffinitsize</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+  </ul>
+<li><a class="func" title="lua_createtable" href="http://www.lua.org/manual/5.3/manual.html#lua_createtable">createtable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_execresult" href="http://www.lua.org/manual/5.3/manual.html#luaL_execresult">execresult</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+  </ul>
+<li><a class="func" title="luaL_fileresult" href="http://www.lua.org/manual/5.3/manual.html#luaL_fileresult">fileresult</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+  </ul>
+<li><a class="func" title="luaL_getmetafield" href="http://www.lua.org/manual/5.3/manual.html#luaL_getmetafield">getmetafield</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+  </ul>
+<li><a class="func" title="luaL_getmetatable" href="http://www.lua.org/manual/5.3/manual.html#luaL_getmetatable">getmetatable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+  </ul>
+<li><a class="func" title="luaL_gsub" href="http://www.lua.org/manual/5.3/manual.html#luaL_gsub">gsub</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="luaL_loadfile" href="http://www.lua.org/manual/5.3/manual.html#luaL_loadfile">loadfile</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Chunk loading and dumping" href="#chunk">chunk</a>
+  </ul>
+<li><a class="func" title="luaL_loadfilex" href="http://www.lua.org/manual/5.3/manual.html#luaL_loadfilex">loadfilex</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Chunk loading and dumping" href="#chunk">chunk</a>
+  </ul>
+<li><a class="func" title="luaL_newlib" href="http://www.lua.org/manual/5.3/manual.html#luaL_newlib">newlib</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_newlibtable" href="http://www.lua.org/manual/5.3/manual.html#luaL_newlibtable">newlibtable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_newmetatable" href="http://www.lua.org/manual/5.3/manual.html#luaL_newmetatable">newmetatable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+  </ul>
+<li><a class="func" title="lua_newtable" href="http://www.lua.org/manual/5.3/manual.html#lua_newtable">newtable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_newthread" href="http://www.lua.org/manual/5.3/manual.html#lua_newthread">newthread</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Coroutines" href="#coro">coro</a>
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_newuserdata" href="http://www.lua.org/manual/5.3/manual.html#lua_newuserdata">newuserdata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+    <li><a class="catlnk" title="userdata functions" href="#udata">udata</a>
+  </ul>
+<li><a class="func" title="luaL_prepbuffer" href="http://www.lua.org/manual/5.3/manual.html#luaL_prepbuffer">prepbuffer</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+  </ul>
+<li><a class="func" title="luaL_prepbuffsize" href="http://www.lua.org/manual/5.3/manual.html#luaL_prepbuffsize">prepbuffsize</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+  </ul>
+<li><a class="func" title="lua_pushcclosure" href="http://www.lua.org/manual/5.3/manual.html#lua_pushcclosure">pushcclosure</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_pushfstring" href="http://www.lua.org/manual/5.3/manual.html#lua_pushfstring">pushfstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="lua_pushliteral" href="http://www.lua.org/manual/5.3/manual.html#lua_pushliteral">pushliteral</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="lua_pushlstring" href="http://www.lua.org/manual/5.3/manual.html#lua_pushlstring">pushlstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="luaL_pushresult" href="http://www.lua.org/manual/5.3/manual.html#luaL_pushresult">pushresult</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+  </ul>
+<li><a class="func" title="luaL_pushresultsize" href="http://www.lua.org/manual/5.3/manual.html#luaL_pushresultsize">pushresultsize</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="String buffer (luaL_Buffer) functions" href="#buf">buf</a>
+  </ul>
+<li><a class="func" title="lua_pushstring" href="http://www.lua.org/manual/5.3/manual.html#lua_pushstring">pushstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="lua_pushvfstring" href="http://www.lua.org/manual/5.3/manual.html#lua_pushvfstring">pushvfstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="lua_rawset" href="http://www.lua.org/manual/5.3/manual.html#lua_rawset">rawset</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_rawseti" href="http://www.lua.org/manual/5.3/manual.html#lua_rawseti">rawseti</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_rawsetp" href="http://www.lua.org/manual/5.3/manual.html#lua_rawsetp">rawsetp</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_ref" href="http://www.lua.org/manual/5.3/manual.html#luaL_ref">ref</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_setfuncs" href="http://www.lua.org/manual/5.3/manual.html#luaL_setfuncs">setfuncs</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="luaL_testudata" href="http://www.lua.org/manual/5.3/manual.html#luaL_testudata">testudata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+    <li><a class="catlnk" title="userdata functions" href="#udata">udata</a>
+  </ul>
+<li><a class="func" title="lua_tolstring" href="http://www.lua.org/manual/5.3/manual.html#lua_tolstring">tolstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="lua_tostring" href="http://www.lua.org/manual/5.3/manual.html#lua_tostring">tostring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="luaL_traceback" href="http://www.lua.org/manual/5.3/manual.html#luaL_traceback">traceback</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Debugging functions" href="#dbg">dbg</a>
+  </ul>
+<li><a class="func" title="luaL_typename" href="http://www.lua.org/manual/5.3/manual.html#luaL_typename">typename</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Type information" href="#ty">ty</a>
+  </ul>
+<li><a class="func" title="luaL_where" href="http://www.lua.org/manual/5.3/manual.html#luaL_where">where</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Debugging functions" href="#dbg">dbg</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="stack">Stack manipulation</h2>
+<ul class="catfns">
+<li><a class="func" title="lua_absindex" href="http://www.lua.org/manual/5.3/manual.html#lua_absindex">absindex</a>
+<li><a class="func" title="lua_checkstack" href="http://www.lua.org/manual/5.3/manual.html#lua_checkstack">checkstack</a>
+<li><a class="func" title="luaL_checkstack" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkstack">checkstack</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="lua_copy" href="http://www.lua.org/manual/5.3/manual.html#lua_copy">copy</a>
+<li><a class="func" title="lua_gettop" href="http://www.lua.org/manual/5.3/manual.html#lua_gettop">gettop</a>
+<li><a class="func" title="lua_insert" href="http://www.lua.org/manual/5.3/manual.html#lua_insert">insert</a>
+<li><a class="func" title="lua_pop" href="http://www.lua.org/manual/5.3/manual.html#lua_pop">pop</a>
+<li><a class="func" title="lua_pushvalue" href="http://www.lua.org/manual/5.3/manual.html#lua_pushvalue">pushvalue</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_remove" href="http://www.lua.org/manual/5.3/manual.html#lua_remove">remove</a>
+<li><a class="func" title="lua_replace" href="http://www.lua.org/manual/5.3/manual.html#lua_replace">replace</a>
+<li><a class="func" title="lua_rotate" href="http://www.lua.org/manual/5.3/manual.html#lua_rotate">rotate</a>
+<li><a class="func" title="lua_settop" href="http://www.lua.org/manual/5.3/manual.html#lua_settop">settop</a>
+<li><a class="func" title="lua_upvalueindex" href="http://www.lua.org/manual/5.3/manual.html#lua_upvalueindex">upvalueindex</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+  </ul>
+<li><a class="func" title="lua_xmove" href="http://www.lua.org/manual/5.3/manual.html#lua_xmove">xmove</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Coroutines" href="#coro">coro</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="buf">String buffer (luaL_Buffer) functions</h2>
+<ul class="catfns">
+<li><a class="func" title="luaL_addchar" href="http://www.lua.org/manual/5.3/manual.html#luaL_addchar">addchar</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_addlstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_addlstring">addlstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_addsize" href="http://www.lua.org/manual/5.3/manual.html#luaL_addsize">addsize</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+  </ul>
+<li><a class="func" title="luaL_addstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_addstring">addstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_buffinit" href="http://www.lua.org/manual/5.3/manual.html#luaL_buffinit">buffinit</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+  </ul>
+<li><a class="func" title="luaL_buffinitsize" href="http://www.lua.org/manual/5.3/manual.html#luaL_buffinitsize">buffinitsize</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_prepbuffer" href="http://www.lua.org/manual/5.3/manual.html#luaL_prepbuffer">prepbuffer</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_prepbuffsize" href="http://www.lua.org/manual/5.3/manual.html#luaL_prepbuffsize">prepbuffsize</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_pushresult" href="http://www.lua.org/manual/5.3/manual.html#luaL_pushresult">pushresult</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_pushresultsize" href="http://www.lua.org/manual/5.3/manual.html#luaL_pushresultsize">pushresultsize</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="str">string functions</h2>
+<ul class="catfns">
+<li><a class="func" title="luaL_checklstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_checklstring">checklstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checkoption" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkoption">checkoption</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_checkstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkstring">checkstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="lua_concat" href="http://www.lua.org/manual/5.3/manual.html#lua_concat">concat</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_error" href="http://www.lua.org/manual/5.3/manual.html#luaL_error">error</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Error handling" href="#err">err</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_gsub" href="http://www.lua.org/manual/5.3/manual.html#luaL_gsub">gsub</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="lua_isstring" href="http://www.lua.org/manual/5.3/manual.html#lua_isstring">isstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Type information" href="#ty">ty</a>
+  </ul>
+<li><a class="func" title="luaL_optlstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_optlstring">optlstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="luaL_optstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_optstring">optstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="lua_pushfstring" href="http://www.lua.org/manual/5.3/manual.html#lua_pushfstring">pushfstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_pushliteral" href="http://www.lua.org/manual/5.3/manual.html#lua_pushliteral">pushliteral</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_pushlstring" href="http://www.lua.org/manual/5.3/manual.html#lua_pushlstring">pushlstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_pushstring" href="http://www.lua.org/manual/5.3/manual.html#lua_pushstring">pushstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_pushvfstring" href="http://www.lua.org/manual/5.3/manual.html#lua_pushvfstring">pushvfstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_stringtonumber" href="http://www.lua.org/manual/5.3/manual.html#lua_stringtonumber">stringtonumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+  </ul>
+<li><a class="func" title="lua_tolstring" href="http://www.lua.org/manual/5.3/manual.html#lua_tolstring">tolstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_tolstring" href="http://www.lua.org/manual/5.3/manual.html#luaL_tolstring">tolstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_tostring" href="http://www.lua.org/manual/5.3/manual.html#lua_tostring">tostring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="tbl">table functions</h2>
+<ul class="catfns">
+<li><a class="func" title="lua_createtable" href="http://www.lua.org/manual/5.3/manual.html#lua_createtable">createtable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_getfield" href="http://www.lua.org/manual/5.3/manual.html#lua_getfield">getfield</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_geti" href="http://www.lua.org/manual/5.3/manual.html#lua_geti">geti</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_getmetatable" href="http://www.lua.org/manual/5.3/manual.html#lua_getmetatable">getmetatable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+  </ul>
+<li><a class="func" title="luaL_getsubtable" href="http://www.lua.org/manual/5.3/manual.html#luaL_getsubtable">getsubtable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_gettable" href="http://www.lua.org/manual/5.3/manual.html#lua_gettable">gettable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_istable" href="http://www.lua.org/manual/5.3/manual.html#lua_istable">istable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Type information" href="#ty">ty</a>
+  </ul>
+<li><a class="func" title="lua_len" href="http://www.lua.org/manual/5.3/manual.html#lua_len">len</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_len" href="http://www.lua.org/manual/5.3/manual.html#luaL_len">len</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_newlib" href="http://www.lua.org/manual/5.3/manual.html#luaL_newlib">newlib</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_newlibtable" href="http://www.lua.org/manual/5.3/manual.html#luaL_newlibtable">newlibtable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="lua_newtable" href="http://www.lua.org/manual/5.3/manual.html#lua_newtable">newtable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_next" href="http://www.lua.org/manual/5.3/manual.html#lua_next">next</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_rawget" href="http://www.lua.org/manual/5.3/manual.html#lua_rawget">rawget</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+  </ul>
+<li><a class="func" title="lua_rawgeti" href="http://www.lua.org/manual/5.3/manual.html#lua_rawgeti">rawgeti</a>
+<li><a class="func" title="lua_rawgetp" href="http://www.lua.org/manual/5.3/manual.html#lua_rawgetp">rawgetp</a>
+<li><a class="func" title="lua_rawlen" href="http://www.lua.org/manual/5.3/manual.html#lua_rawlen">rawlen</a>
+<li><a class="func" title="lua_rawset" href="http://www.lua.org/manual/5.3/manual.html#lua_rawset">rawset</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="lua_rawseti" href="http://www.lua.org/manual/5.3/manual.html#lua_rawseti">rawseti</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="lua_rawsetp" href="http://www.lua.org/manual/5.3/manual.html#lua_rawsetp">rawsetp</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="luaL_ref" href="http://www.lua.org/manual/5.3/manual.html#luaL_ref">ref</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="lua_setfield" href="http://www.lua.org/manual/5.3/manual.html#lua_setfield">setfield</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_setfuncs" href="http://www.lua.org/manual/5.3/manual.html#luaL_setfuncs">setfuncs</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+<li><a class="func" title="lua_seti" href="http://www.lua.org/manual/5.3/manual.html#lua_seti">seti</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_setmetatable" href="http://www.lua.org/manual/5.3/manual.html#lua_setmetatable">setmetatable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="lua_settable" href="http://www.lua.org/manual/5.3/manual.html#lua_settable">settable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Operators" href="#op">op</a>
+    <li><a class="catlnk" title="Possibly raising errors" href="#rerr">rerr</a>
+  </ul>
+<li><a class="func" title="luaL_unref" href="http://www.lua.org/manual/5.3/manual.html#luaL_unref">unref</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="ty">Type information</h2>
+<ul class="catfns">
+<li><a class="func" title="luaL_checktype" href="http://www.lua.org/manual/5.3/manual.html#luaL_checktype">checktype</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="lua_isboolean" href="http://www.lua.org/manual/5.3/manual.html#lua_isboolean">isboolean</a>
+<li><a class="func" title="lua_iscfunction" href="http://www.lua.org/manual/5.3/manual.html#lua_iscfunction">iscfunction</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="function functions" href="#fn">fn</a>
+  </ul>
+<li><a class="func" title="lua_isinteger" href="http://www.lua.org/manual/5.3/manual.html#lua_isinteger">isinteger</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+  </ul>
+<li><a class="func" title="lua_islightuserdata" href="http://www.lua.org/manual/5.3/manual.html#lua_islightuserdata">islightuserdata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="userdata functions" href="#udata">udata</a>
+  </ul>
+<li><a class="func" title="lua_isnil" href="http://www.lua.org/manual/5.3/manual.html#lua_isnil">isnil</a>
+<li><a class="func" title="lua_isnone" href="http://www.lua.org/manual/5.3/manual.html#lua_isnone">isnone</a>
+<li><a class="func" title="lua_isnoneornil" href="http://www.lua.org/manual/5.3/manual.html#lua_isnoneornil">isnoneornil</a>
+<li><a class="func" title="lua_isnumber" href="http://www.lua.org/manual/5.3/manual.html#lua_isnumber">isnumber</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="number functions" href="#num">num</a>
+  </ul>
+<li><a class="func" title="lua_isstring" href="http://www.lua.org/manual/5.3/manual.html#lua_isstring">isstring</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="string functions" href="#str">str</a>
+  </ul>
+<li><a class="func" title="lua_istable" href="http://www.lua.org/manual/5.3/manual.html#lua_istable">istable</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_isthread" href="http://www.lua.org/manual/5.3/manual.html#lua_isthread">isthread</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Coroutines" href="#coro">coro</a>
+  </ul>
+<li><a class="func" title="lua_isuserdata" href="http://www.lua.org/manual/5.3/manual.html#lua_isuserdata">isuserdata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="userdata functions" href="#udata">udata</a>
+  </ul>
+<li><a class="func" title="lua_type" href="http://www.lua.org/manual/5.3/manual.html#lua_type">type</a>
+<li><a class="func" title="luaL_typename" href="http://www.lua.org/manual/5.3/manual.html#luaL_typename">typename</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
+</ul>
+<h2 class="cathdr" id="udata">userdata functions</h2>
+<ul class="catfns">
+<li><a class="func" title="luaL_checkudata" href="http://www.lua.org/manual/5.3/manual.html#luaL_checkudata">checkudata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Raising errors on purpose" href="#verr">verr</a>
+  </ul>
+<li><a class="func" title="lua_getuservalue" href="http://www.lua.org/manual/5.3/manual.html#lua_getuservalue">getuservalue</a>
+<li><a class="func" title="lua_islightuserdata" href="http://www.lua.org/manual/5.3/manual.html#lua_islightuserdata">islightuserdata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Type information" href="#ty">ty</a>
+  </ul>
+<li><a class="func" title="lua_isuserdata" href="http://www.lua.org/manual/5.3/manual.html#lua_isuserdata">isuserdata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Type information" href="#ty">ty</a>
+  </ul>
+<li><a class="func" title="lua_newuserdata" href="http://www.lua.org/manual/5.3/manual.html#lua_newuserdata">newuserdata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_pushlightuserdata" href="http://www.lua.org/manual/5.3/manual.html#lua_pushlightuserdata">pushlightuserdata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
+  </ul>
+<li><a class="func" title="lua_setuservalue" href="http://www.lua.org/manual/5.3/manual.html#lua_setuservalue">setuservalue</a>
+<li><a class="func" title="luaL_testudata" href="http://www.lua.org/manual/5.3/manual.html#luaL_testudata">testudata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+    <li><a class="catlnk" title="Metatable functions" href="#mt">mt</a>
+  </ul>
+<li><a class="func" title="lua_touserdata" href="http://www.lua.org/manual/5.3/manual.html#lua_touserdata">touserdata</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Functions for getting Lua values to C objects" href="#get">get</a>
+  </ul>
+</ul>
+
+<aside>Generated by <a href="https://gist.github.com/Oberon00/8c74d22c25a0fb3581e7">https://gist.github.com/Oberon00/8c74d22c25a0fb3581e7</a>.</aside>
+</body>
+</html>

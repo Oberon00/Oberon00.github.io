@@ -1,0 +1,82 @@
+html, body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a.catlnk, a.func, a.cat {
+    color: inherit;
+}
+
+.catfns, .cats {
+    list-style-type: none;
+}
+
+.funccats {
+    list-style-type: none;
+    text-indent: 0;
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
+.funccats > li {
+    display: inline;
+    color: #777;
+}
+
+.funccats > li .catlnk::after {
+    content: ',';
+}
+
+.funccats > li:last-child .catlnk::after {
+    content: '';
+}
+
+.func {
+    min-width: 7em;
+    display: inline-block;
+}
+
+@media screen and (min-width: 500px), print {
+    .catfns {
+        column-count: 2;
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .catfns {
+        column-count: 3;
+        -moz-column-count: 3;
+        -webkit-column-count: 3;
+    }
+
+    .cats {
+        column-count: 2;
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+    }
+
+}
+
+@media screen and (min-width: 1200px) {
+    .catfns {
+        column-count: 4;
+        -moz-column-count: 4;
+        -webkit-column-count: 4;
+    }
+
+    .cats {
+        column-count: 3;
+        -moz-column-count: 3;
+        -webkit-column-count: 3;
+    }
+}
