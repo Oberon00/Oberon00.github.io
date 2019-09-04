@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Lua C-API functions by category</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,32 +15,33 @@
     differ in the prefix. In this cases look if the function is marked as being
     in the <a href="#aux">“Auxiliary library” (aux)</a> category.
 </p>
-<p>Categories: <ul class="cats"/>
-<li><a class="cat" href="#aux">Auxiliary library (luaL_*) (aux)</a>
-<li><a class="cat" href="#chunk">Chunk loading and dumping (chunk)</a>
-<li><a class="cat" href="#coro">Coroutines (coro)</a>
-<li><a class="cat" href="#psh">Creating and pushing new values (psh)</a>
-<li><a class="cat" href="#dbg">Debugging functions (dbg)</a>
-<li><a class="cat" href="#err">Error handling (err)</a>
-<li><a class="cat" href="#exec">Executing Lua code (exec)</a>
-<li><a class="cat" href="#fn">function functions (fn)</a>
-<li><a class="cat" href="#get">Functions for getting Lua values to C objects (get)</a>
-<li><a class="cat" href="#nostate">Functions not needing a lua_State* (nostate)</a>
-<li><a class="cat" href="#glob">Global table (glob)</a>
-<li><a class="cat" href="#state">lua_State managemenent (state)</a>
-<li><a class="cat" href="#mem">Memory and allocation related functions (mem)</a>
-<li><a class="cat" href="#mt">Metatable functions (mt)</a>
-<li><a class="cat" href="#num">number functions (num)</a>
-<li><a class="cat" href="#op">Operators (op)</a>
-<li><a class="cat" href="#rerr">Possibly raising errors (rerr)</a>
-<li><a class="cat" href="#verr">Raising errors on purpose (verr)</a>
-<li><a class="cat" href="#merr">Raising errors only when out of memory (merr)</a>
-<li><a class="cat" href="#stack">Stack manipulation (stack)</a>
-<li><a class="cat" href="#buf">String buffer (luaL_Buffer) functions (buf)</a>
-<li><a class="cat" href="#str">string functions (str)</a>
-<li><a class="cat" href="#tbl">table functions (tbl)</a>
-<li><a class="cat" href="#ty">Type information (ty)</a>
-<li><a class="cat" href="#udata">userdata functions (udata)</a>
+<p>
+    Categories: <ul class="cats">
+      <li><a class="cat" href="#aux">Auxiliary library (luaL_*) (aux)</a>
+      <li><a class="cat" href="#chunk">Chunk loading and dumping (chunk)</a>
+      <li><a class="cat" href="#coro">Coroutines (coro)</a>
+      <li><a class="cat" href="#psh">Creating and pushing new values (psh)</a>
+      <li><a class="cat" href="#dbg">Debugging functions (dbg)</a>
+      <li><a class="cat" href="#err">Error handling (err)</a>
+      <li><a class="cat" href="#exec">Executing Lua code (exec)</a>
+      <li><a class="cat" href="#fn">function functions (fn)</a>
+      <li><a class="cat" href="#get">Functions for getting Lua values to C objects (get)</a>
+      <li><a class="cat" href="#nostate">Functions not needing a lua_State* (nostate)</a>
+      <li><a class="cat" href="#glob">Global table (glob)</a>
+      <li><a class="cat" href="#state">lua_State managemenent (state)</a>
+      <li><a class="cat" href="#mem">Memory and allocation related functions (mem)</a>
+      <li><a class="cat" href="#mt">Metatable functions (mt)</a>
+      <li><a class="cat" href="#num">number functions (num)</a>
+      <li><a class="cat" href="#op">Operators (op)</a>
+      <li><a class="cat" href="#rerr">Possibly raising errors (rerr)</a>
+      <li><a class="cat" href="#verr">Raising errors on purpose (verr)</a>
+      <li><a class="cat" href="#merr">Raising errors only when out of memory (merr)</a>
+      <li><a class="cat" href="#stack">Stack manipulation (stack)</a>
+      <li><a class="cat" href="#buf">String buffer (luaL_Buffer) functions (buf)</a>
+      <li><a class="cat" href="#str">string functions (str)</a>
+      <li><a class="cat" href="#tbl">table functions (tbl)</a>
+      <li><a class="cat" href="#ty">Type information (ty)</a>
+      <li><a class="cat" href="#udata">userdata functions (udata)</a>
 </ul></p>
 <h2 class="cathdr" id="aux">Auxiliary library (luaL_*)</h2>
 <ul class="catfns">
@@ -1446,6 +1448,18 @@
     <li><a class="catlnk" title="Creating and pushing new values" href="#psh">psh</a>
     <li><a class="catlnk" title="string functions" href="#str">str</a>
   </ul>
+<li><a class="func" title="lua_rawset" href="http://www.lua.org/manual/5.3/manual.html#lua_rawset">rawset</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_rawseti" href="http://www.lua.org/manual/5.3/manual.html#lua_rawseti">rawseti</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
+<li><a class="func" title="lua_rawsetp" href="http://www.lua.org/manual/5.3/manual.html#lua_rawsetp">rawsetp</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="table functions" href="#tbl">tbl</a>
+  </ul>
 <li><a class="func" title="luaL_ref" href="http://www.lua.org/manual/5.3/manual.html#luaL_ref">ref</a>
   <ul class="funccats">
     <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
@@ -1741,8 +1755,17 @@
 <li><a class="func" title="lua_rawgetp" href="http://www.lua.org/manual/5.3/manual.html#lua_rawgetp">rawgetp</a>
 <li><a class="func" title="lua_rawlen" href="http://www.lua.org/manual/5.3/manual.html#lua_rawlen">rawlen</a>
 <li><a class="func" title="lua_rawset" href="http://www.lua.org/manual/5.3/manual.html#lua_rawset">rawset</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
 <li><a class="func" title="lua_rawseti" href="http://www.lua.org/manual/5.3/manual.html#lua_rawseti">rawseti</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
 <li><a class="func" title="lua_rawsetp" href="http://www.lua.org/manual/5.3/manual.html#lua_rawsetp">rawsetp</a>
+  <ul class="funccats">
+    <li><a class="catlnk" title="Raising errors only when out of memory" href="#merr">merr</a>
+  </ul>
 <li><a class="func" title="luaL_ref" href="http://www.lua.org/manual/5.3/manual.html#luaL_ref">ref</a>
   <ul class="funccats">
     <li><a class="catlnk" title="Auxiliary library (luaL_*)" href="#aux">aux</a>
